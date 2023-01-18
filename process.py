@@ -20,7 +20,7 @@ class EventProcessor:
         self.events['year'] = [extract_year(x) for key, x in enumerate(self.events['date'])]
         self.shots = self.events[self.events.event_type == 1]
         self.shots['player'] = self.shots['player'].str.title()
-        #self.shots['player2'] = self.shots['player2'].str.title()
+        # self.shots['player2'] = self.shots['player2'].str.title()
         self.shots['country'] = self.shots['country'].str.title()
 
         # remove player_in and player_out
@@ -43,10 +43,6 @@ class DataEncoder:
 
 class DataSplitter:
     def __init__(self, data, target, test_size=0.35, random_state=1):
-        self.y_test = None
-        self.y_train = None
-        self.X_test = None
-        self.X_train = None
         self.data = data
         self.target = target
         self.test_size = test_size
@@ -54,7 +50,7 @@ class DataSplitter:
 
     def split(self):
         X_train, X_test, y_train, y_test = train_test_split(self.data, self.target, test_size=self.test_size,
-                                                            random_state=self.random_state)
+                                                            random_state=self.random_state, stratify=self.target)
         self.X_train = X_train
         self.X_test = X_test
         self.y_train = y_train
