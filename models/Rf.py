@@ -9,8 +9,9 @@ class Rf:
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.random_state = random_state
-        # self.model = RandomForestRegressor(n_estimators=self.n_estimators, max_depth=self.max_depth, random_state=self.random_state)
-        self.model = RandomForestClassifier(random_state=self.random_state)
+        self.model = RandomForestClassifier(n_estimators=self.n_estimators, max_depth=self.max_depth,
+                                            random_state=self.random_state)
+        # self.model = RandomForestClassifier(random_state=self.random_state)
 
     def fit(self, X_train, y_train):
         self.model.fit(X_train, y_train)
