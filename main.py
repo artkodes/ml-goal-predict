@@ -14,7 +14,6 @@ def rf_model(splitter):
 
 
 if __name__ == '__main__':
-    st.title('Uber pickups in NYC')
     file = st.sidebar.file_uploader('Upload a CSV file')
 
     if file is not None:
