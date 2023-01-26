@@ -1,3 +1,5 @@
+import pickle
+
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
@@ -15,6 +17,13 @@ class Rf:
 
     def fit(self, X_train, y_train):
         self.model.fit(X_train, y_train)
+        # save the model to disk
+        filename = 'models/Rf.sav'
+        pickle.dump(self.model, open(filename, 'wb'))
+
+    def load(self):
+        filename = 'models/Rf.sav'
+        self.model = pickle.load(open(filename, 'rb'))
 
     def predict(self, X_test):
         return self.model.predict(X_test)

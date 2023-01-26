@@ -2,6 +2,7 @@ import streamlit as st
 from sklearn.metrics import classification_report
 
 from models.GradientBoosting import GradientB
+from models.KNN import KNN
 from models.Rf import Rf
 from process import EventProcessor, DataEncoder, DataSplitter
 
@@ -20,6 +21,14 @@ def gb_model(splitter):
     gb = GradientB()
     gb.train(X_train=splitter.X_train, X_val=splitter.X_test, y_train=splitter.y_train, y_val=splitter.y_test)
     gb.predict(X_test=splitter.X_test, y_test=splitter.y_test)
+
+
+def knn_model(splitter):
+    # KNN
+    knn = KNN()
+    #knn.fit(X_train=splitter.X_train, y_train=splitter.y_train)
+    knn.load()
+    knn.predict(X_test=splitter.X_test, y_test=splitter.y_test)
 
 
 if __name__ == '__main__':
@@ -44,9 +53,13 @@ if __name__ == '__main__':
         )
         splitter.split()
 
-        selected_model = st.sidebar.selectbox('Select a model', ['Random Forest', "Gradient Boosting"])
+        selected_model = st.sidebar.selectbox('Select a model', ['Random Forest', "Gradient Boosting", "KNN"])
+
+        st.title('Model: ${}$'.format(selected_model))
 
         if selected_model == 'Random Forest':
             rf_model(splitter)
         elif selected_model == 'Gradient Boosting':
             gb_model(splitter)
+        elif selected_model == 'KNN':
+            knn_model(splitter)
